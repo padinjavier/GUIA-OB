@@ -13,12 +13,12 @@
 
 body {
     background-color: var(--bbva-bg);
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh; /* Cambiado de height a min-height */
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+    padding: 40px 10px 20px 10px; /* Espacio para el banner superior */
 }
 
 /* --- CLASES UTILITARIAS --- */
@@ -35,17 +35,17 @@ body {
 
 /* --- BANNER Y BOTÓN INTRANET --- */
 .warning-banner {
-    position: absolute; top: 0; left: 0; width: 100%;
+    position: fixed; top: 0; left: 0; width: 100%;
     background-color: #ffeeba; color: #856404;
-    text-align: center; padding: 8px; font-size: 13px; font-weight: 700;
+    text-align: center; padding: 8px; font-size: 12px; font-weight: 700;
     z-index: 100; border-bottom: 2px solid #ffc107;
 }
 
 .btn-intranet {
-    position: absolute; bottom: 20px; right: 20px;
+    position: fixed; bottom: 20px; right: 20px;
     background-color: var(--danger-red); color: white;
-    padding: 10px 20px; border-radius: 8px; text-decoration: none;
-    font-weight: 700; font-size: 14px; box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
+    padding: 10px 15px; border-radius: 8px; text-decoration: none;
+    font-weight: 700; font-size: 13px; box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
     z-index: 100; transition: transform 0.2s, background 0.2s;
     display: flex; align-items: center; gap: 8px;
 }
@@ -53,14 +53,19 @@ body {
 
 /* --- DECORACIÓN DE FONDO --- */
 .bg-shape { position: absolute; border-radius: 50%; z-index: 0; }
-.bg-shape-1 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(0,163,224,0.1) 0%, rgba(244,247,249,0) 70%); top: -100px; left: -100px; }
-.bg-shape-2 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(7,33,70,0.05) 0%, rgba(244,247,249,0) 70%); bottom: -150px; right: -100px; }
+.bg-shape-1 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(0,163,224,0.1) 0%, rgba(244,247,249,0) 70%); top: -50px; left: -50px; }
+.bg-shape-2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(7,33,70,0.05) 0%, rgba(244,247,249,0) 70%); bottom: -100px; right: -100px; }
 
-/* --- LAYOUT PRINCIPAL --- */
+/* --- LAYOUT PRINCIPAL (RESPONSIVE) --- */
 .main-layout {
-    display: flex; align-items: center; justify-content: center;
-    gap: 30px; z-index: 10; width: 100%; max-width: 1000px;
-    padding: 0 20px; margin-top: 30px;
+    display: flex;
+    flex-direction: row; /* Por defecto en PC: fila */
+    align-items: flex-start; 
+    justify-content: center;
+    gap: 30px; 
+    z-index: 10; 
+    width: 100%; 
+    max-width: 1000px;
 }
 
 /* --- TARJETA DE CONSEJO --- */
@@ -69,20 +74,34 @@ body {
     box-shadow: 0 8px 20px rgba(0,0,0,0.06);
     width: 220px; border-left: 4px solid var(--accent-orange);
     animation: float 4s ease-in-out infinite;
-    flex-shrink: 0; position: absolute; top: 50%; left: 100px;
+    flex-shrink: 0; 
+    /* Ya no es position absolute, ahora es parte del flujo flex */
+    margin-top: 50px; /* Alineación visual con el carrusel */
 }
 .tip-card i { color: var(--accent-orange); font-size: 20px; margin-bottom: 8px; }
 .tip-card p { font-size: 12px; color: var(--text-gray); line-height: 1.4; }
 @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 
 /* --- COLUMNA CENTRAL --- */
-.center-column { display: flex; flex-direction: column; align-items: center; flex-grow: 1; }
+.center-column { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    flex-grow: 1; 
+    width: 100%;
+    max-width: 550px; /* Límite máximo en PC */
+}
 .header-logos { text-align: center; margin-bottom: 10px; }
 .bbva-logo { color: var(--bbva-blue); font-size: 36px; font-weight: 800; letter-spacing: -1px; line-height: 1; }
 .subtitle-top { color: var(--bbva-blue); font-size: 16px; font-weight: 700; margin-top: 2px; }
 
-/* --- CARRUSEL --- */
-.carousel-viewport { width: 520px; height: 380px; position: relative; }
+/* --- CARRUSEL ADAPTATIVO --- */
+.carousel-viewport { 
+    width: 100%; /* Ocupa todo el ancho del contenedor padre */
+    max-width: 520px; /* Límite en PC */
+    height: 340px; /* Altura ajustada para evitar cortes */
+    position: relative;
+}
 .slide {
     position: absolute; width: 100%; height: 100%;
     background: white; padding: 20px; border-radius: 12px;
@@ -120,7 +139,7 @@ h2 { color: var(--bbva-blue); font-size: 18px; margin-bottom: 8px; font-weight: 
 /* --- BOTONES --- */
 .btn-blue {
     background-color: var(--btn-blue); color: white; border: none;
-    padding: 10px 0; border-radius: 6px; font-size: 14px;
+    padding: 12px 0; border-radius: 6px; font-size: 14px;
     font-weight: 700; cursor: pointer; width: 100%; transition: background 0.3s;
 }
 .btn-blue:hover { background-color: var(--bbva-blue); }
@@ -128,7 +147,7 @@ h2 { color: var(--bbva-blue); font-size: 18px; margin-bottom: 8px; font-weight: 
 
 .btn-white {
     background-color: #f4f7f9; color: var(--btn-blue); border: none;
-    padding: 10px 0; border-radius: 6px; font-size: 14px;
+    padding: 12px 0; border-radius: 6px; font-size: 14px;
     font-weight: 700; cursor: pointer; width: 100%;
 }
 .btn-row { display: flex; gap: 10px; }
@@ -160,7 +179,7 @@ h2 { color: var(--bbva-blue); font-size: 18px; margin-bottom: 8px; font-weight: 
 /* --- CONTROLES DEL CARRUSEL --- */
 .carousel-controls { display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 15px; width: 100%; }
 .nav-btn {
-    background: white; border: none; width: 35px; height: 35px;
+    background: white; border: none; width: 40px; height: 40px;
     border-radius: 50%; color: var(--bbva-blue); font-size: 14px;
     cursor: pointer; box-shadow: 0 3px 8px rgba(0,0,0,0.1);
     transition: all 0.3s; display: flex; justify-content: center; align-items: center;
@@ -174,59 +193,119 @@ h2 { color: var(--bbva-blue); font-size: 18px; margin-bottom: 8px; font-weight: 
 /* =========================================
    ESTILOS DEL ACTA (HOJA A4 COMPACTA)
    ========================================= */
-.slide-acta { padding: 15px; }
+.slide-acta { padding: 10px; }
 .acta-header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
 .h2-acta { font-size: 15px; margin-bottom: 0; }
 
 .acta-container {
     text-align: left; font-size: 10px; color: #333;
-    flex: 1; /* Optimizado para adaptarse sin scroll */
-    min-height: 0;
+    flex: 1;
+    min-height: 0; /* Permite scroll interno */
     display: flex; flex-direction: column;
     background: #fff; padding: 5px;
 }
 
-.acta-tabs { display: flex; gap: 4px; margin-bottom: 10px; }
-.acta-tab { padding: 6px 12px; background: #e1e8ed; border-radius: 4px 4px 0 0; cursor: pointer; font-weight: 700; color: var(--text-gray); font-size: 11px; }
+.acta-tabs { display: flex; gap: 4px; margin-bottom: 10px; overflow-x: auto; } /* Permitir scroll horizontal en tabs si es muy pequeño */
+.acta-tab { padding: 6px 10px; background: #e1e8ed; border-radius: 4px 4px 0 0; cursor: pointer; font-weight: 700; color: var(--text-gray); font-size: 11px; white-space: nowrap; }
 .acta-tab.active { background: white; color: var(--bbva-blue); border-top: 2px solid var(--bbva-blue); }
 
-.acta-page { display: none; flex-grow: 1; overflow-y: auto; padding-right: 5px; background: #fdfdfd; border: 1px solid #ddd; padding: 15px; box-shadow: inset 0 0 10px rgba(0,0,0,0.02); }
+.acta-page { display: none; flex-grow: 1; overflow-y: auto; padding-right: 5px; background: #fdfdfd; border: 1px solid #ddd; padding: 10px; box-shadow: inset 0 0 10px rgba(0,0,0,0.02); }
 .acta-page.active { display: block; }
 .acta-page::-webkit-scrollbar { width: 4px; }
 .acta-page::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
 
-.acta-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #004481; padding-bottom: 5px; margin-bottom: 15px; }
-.acta-logo-bbva { font-size: 26px; font-weight: 800; color: #004481; letter-spacing: -1px; }
+.acta-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #004481; padding-bottom: 5px; margin-bottom: 10px; }
+.acta-logo-bbva { font-size: 22px; font-weight: 800; color: #004481; letter-spacing: -1px; }
 .acta-logo-bvs { text-align: right; }
-.acta-logo-bvs strong { font-size: 22px; color: var(--bvs-blue); }
+.acta-logo-bvs strong { font-size: 18px; color: var(--bvs-blue); }
 .acta-logo-bvs span { font-size: 8px; display: block; color: #666; margin-top: -3px; }
 
-.acta-title { text-align: center; font-size: 14px; color: #333; margin-bottom: 15px; font-weight: 700; text-transform: uppercase; }
+.acta-title { text-align: center; font-size: 12px; color: #333; margin-bottom: 10px; font-weight: 700; text-transform: uppercase; }
 
-.acta-data-group { margin-bottom: 15px; }
-.acta-data-row { margin-bottom: 8px; font-weight: 700; color: #333; font-size: 11px; }
-.acta-data-row span { font-weight: 400; border-bottom: 1px solid #999; display: inline-block; width: 270px; margin-left: 5px; }
+.acta-data-group { margin-bottom: 10px; }
+.acta-data-row { margin-bottom: 5px; font-weight: 700; color: #333; font-size: 10px; }
+.acta-data-row span { font-weight: 400; border-bottom: 1px solid #999; display: inline-block; width: 200px; margin-left: 5px; }
 
-.acta-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 10px; }
-.acta-table th, .acta-table td { border: 1px solid #999; padding: 5px; }
+.acta-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 9px; }
+.acta-table th, .acta-table td { border: 1px solid #999; padding: 4px; }
 .acta-table th { background-color: #4a7ebb; color: white; text-align: center; font-weight: 600; }
-.acta-table-container { margin-top: 10px; width: 60%; }
+.acta-table-container { margin-top: 10px; width: 100%; max-width: 300px; }
 .acta-table-label { font-weight: 700; width: 30%; }
 .acta-table-center { text-align: center; color: #999; }
-.check-icon { color: #004481; font-size: 12px; }
+.check-icon { color: #004481; font-size: 10px; }
 
-.acta-obs-box { border: 1px solid #999; padding: 10px; min-height: 80px; margin-top: 15px; }
-.acta-obs-title { background: #e1e8ed; padding: 5px; font-weight: 700; margin: -10px -10px 10px -10px; border-bottom: 1px solid #999; font-size: 11px; }
+.acta-obs-box { border: 1px solid #999; padding: 8px; min-height: 60px; margin-top: 10px; }
+.acta-obs-title { background: #e1e8ed; padding: 4px; font-weight: 700; margin: -8px -8px 8px -8px; border-bottom: 1px solid #999; font-size: 10px; }
 
-.acta-small-text { font-size: 9px; color: #444; line-height: 1.4; text-align: justify; margin-bottom: 10px; }
-.acta-bold { font-weight: 700; font-size: 11px; margin-bottom: 5px; display: block; }
-.acta-declaration { margin-top: 20px; font-size: 9px; line-height: 1.6; }
-.acta-list { font-size: 10px; line-height: 1.6; margin-bottom: 15px; padding-left: 10px; }
+.acta-small-text { font-size: 8px; color: #444; line-height: 1.3; text-align: justify; margin-bottom: 8px; }
+.acta-bold { font-weight: 700; font-size: 10px; margin-bottom: 5px; display: block; }
+.acta-declaration { margin-top: 15px; font-size: 8px; line-height: 1.5; }
+.acta-list { font-size: 9px; line-height: 1.5; margin-bottom: 10px; padding-left: 5px; }
 
 /* --- FIRMAS --- */
-.acta-firmas { display: flex; justify-content: space-around; margin-top: 40px; text-align: center; font-weight: 700; font-size: 11px; }
-.firma-container { display: flex; flex-direction: column; align-items: center; width: 180px; }
+.acta-firmas { display: flex; justify-content: space-around; margin-top: 20px; text-align: center; font-weight: 700; font-size: 9px; }
+.firma-container { display: flex; flex-direction: column; align-items: center; width: 120px; }
 .firma-line { border-top: 1px solid #333; width: 100%; padding-top: 5px; }
-.firma-icon { color: var(--bbva-blue); font-size: 20px; margin-bottom: 5px; }
+.firma-icon { color: var(--bbva-blue); font-size: 16px; margin-bottom: 5px; }
 .firma-icon-inline { color: var(--bbva-blue); }
-.firma-icon-transparent { color: transparent; font-size: 20px; margin-bottom: 5px; }
+.firma-icon-transparent { color: transparent; font-size: 16px; margin-bottom: 5px; }
+
+
+/* =========================================
+   MEDIA QUERIES (RESPONSIVE DESIGN)
+   ========================================= */
+
+/* Tablets y Celulares Grandes */
+@media (max-width: 900px) {
+    .main-layout {
+        flex-direction: column; /* Cambia a columna: Consejo arriba, carrusel abajo */
+        align-items: center;
+        gap: 15px;
+    }
+
+    .tip-card {
+        position: relative;
+        top: auto; left: auto;
+        width: 100%;
+        max-width: 500px; /* Se alinea con el ancho del carrusel */
+        margin-top: 0;
+        animation: none; /* Quitamos la animación flotante para que no distraiga */
+        border-left: none;
+        border-top: 4px solid var(--accent-orange); /* Borde superior en vez de izquierdo */
+    }
+    
+    .carousel-viewport {
+        height: 360px; /* Un poco más de altura al tener más espacio horizontal */
+    }
+}
+
+/* Celulares Estándar (iPhone, Samsung, etc.) */
+@media (max-width: 600px) {
+    body {
+        padding: 50px 10px 20px 10px; /* Más espacio arriba por el banner */
+        align-items: flex-start; /* Permite scroll natural si el contenido es largo */
+    }
+
+    .warning-banner { font-size: 11px; padding: 6px; }
+    .btn-intranet { bottom: 10px; right: 10px; padding: 8px 12px; font-size: 12px; }
+    
+    .bbva-logo { font-size: 28px; }
+    .subtitle-top { font-size: 14px; }
+
+    .carousel-viewport {
+        height: 400px; /* En celular el ancho es menor, así que damos más altura para que quepa todo */
+    }
+
+    .slide { padding: 15px; }
+    h2 { font-size: 16px; }
+    .subtitle { font-size: 12px; }
+
+    /* Ajustes de Acta para Celular */
+    .slide-acta { padding: 5px; }
+    .acta-header { flex-direction: column; align-items: flex-start; gap: 5px; }
+    .acta-logo-bvs { text-align: left; }
+    .acta-data-row span { width: 100%; margin-left: 0; margin-top: 2px; display: block; } /* Los datos ocupan toda la línea */
+    .acta-table th, .acta-table td { padding: 2px; font-size: 8px; } /* Tabla más compacta */
+    .acta-firmas { flex-direction: column; align-items: center; gap: 20px; } /* Firmas una debajo de la otra */
+    .firma-container { width: 100%; }
+}
